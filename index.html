@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS</title>
+</head>
+<body>
+    <button onclick="getdata()"> get data</button>
+    <button onclick="adddata()"> add data</button>
+    <button onclick="changepcolor()"> change p color</button>
+    <button onclick="addli()"> add li</button>
+    <button onclick="getclass()"> getclass</button>
+
+
+    <br>
+    <ol id="ol">
+
+    </ol>
+
+    <p id="1111">get element by id</p>
+    <div id="mydiv" class="class1 class2"> my div</div>
+    <div  class="class1"> my div</div>
+
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    var conter=1;
+    function getclass(){
+        var div=document.getElementById('mydiv')
+        // console.log(div.classList)
+        div.classList.add('class3')
+        // div.classList.remove('class1')
+        var divv=document.getElementsByClassName('class1')
+        console.log(divv)
+
+    }
+    function addli(){
+        var element=document.getElementById('ol')
+        var newelement=document.createElement('li')
+        newelement.innerHTML='new li '+conter
+        conter=conter+1
+        newelement.addEventListener('click',function (e){
+            console.log(e.target.innerHTML)
+        })
+        newelement.style.width ='100px';
+        newelement.style.height="100px"
+        newelement.style.backgroundColor='red'
+        element.appendChild(newelement)
+    }
+    function changepcolor(){
+        var myelement=document.getElementById('1111')
+        // console.log(myelement)
+        myelement.style.color='red'
+        // console.log(myelement.innerHTML)
+        myelement.innerHTML='changed'
+    }
+
+    function getdata(){
+        axios.get('http://localhost/php%20course/api_get.php').then(function (res){
+        console.log(res.data.message.msg)
+        console.log(res.data.data)
+
+    }).catch(function (error){
+        console.log('sorry you have an error')
+    })
+    }
+    function adddata(){
+        axios.post('http://localhost/php%20course/api_insert.php',{email:'test@test.test',password:'test'}).then(function(res){
+            console.log(res)
+        }).catch(function (err){
+            console.log('this data is not added into db')
+        })
+    }
+
+</script>
+</html>
